@@ -1,0 +1,78 @@
+module ALU_1bit_tb;
+
+	// Inputs
+	reg i_bit1;
+	reg i_bit2;
+	reg i_carry;
+	reg Ainvert;
+	reg Binvert;
+	reg [1:0] Operation;
+
+	// Outputs
+	wire o_result;
+	wire o_carry;
+
+	// Instantiate the Unit Under Test (UUT)
+	ALU_1bit uut (
+		.i_bit1(i_bit1), 
+		.i_bit2(i_bit2), 
+		.i_carry(i_carry), 
+		.Ainvert(Ainvert), 
+		.Binvert(Binvert), 
+		.Operation(Operation), 
+		.o_result(o_result), 
+		.o_carry(o_carry)
+	);
+
+	initial begin
+		// Initialize Inputs
+		i_bit1 = 0;
+		i_bit2 = 1;
+		i_carry = 0;
+		
+		{Ainvert, Binvert, Operation} = 4'b0000; //AND
+		#10;
+		
+		{Ainvert, Binvert, Operation} = 4'b0001; //OR
+		#10;
+		
+		{Ainvert, Binvert, Operation} = 4'b0010; //add
+		#10;
+		
+		i_carry = 1;
+		{Ainvert, Binvert, Operation} = 4'b0110; //subract
+		#10;
+		
+		i_carry = 0;
+		{Ainvert, Binvert, Operation} = 4'b1100; //NOR
+		#10;
+		
+		i_bit1 = 1;
+		i_bit2 = 1;
+		i_carry = 0;
+		
+		{Ainvert, Binvert, Operation} = 4'b0000; //AND
+		#10;
+		
+		{Ainvert, Binvert, Operation} = 4'b0001; //OR
+		#10;
+		
+		{Ainvert, Binvert, Operation} = 4'b0010; //add
+		#10;
+		
+		i_carry = 1;
+		{Ainvert, Binvert, Operation} = 4'b0110; //subract
+		#10;
+		
+		i_carry = 0;
+		{Ainvert, Binvert, Operation} = 4'b1100; //NOR
+		#10;
+		
+		$finish;
+
+		
+
+	end
+      
+endmodule
+
