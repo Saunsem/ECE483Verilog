@@ -1,0 +1,48 @@
+module ALU_1bit(
+	
+	i_bit1,
+   i_bit2,
+   i_carry,
+	Ainvert,
+	Binvert,
+	Operation,
+   o_result,
+   o_carry
+	
+    );
+	 
+	input i_bit1;
+	input i_bit2;
+	input i_carry;
+	input Ainvert;
+	input Binvert;
+	input [1:0] Operation;
+	output o_result;
+	output o_carry;
+	wire w_Wire1;
+	wire w_Wire2;
+	wire w_Wire3;
+	wire w_Wire4;
+	wire w_Wire5;
+	wire i_bit1a = ~i_bit1;
+	wire i_bit2a = ~i_bit2;
+	
+	
+	Mux_2to1 M1 (.i_bit1(i_bit1), .i_bit2(i_bit1a), .i_bitS(Ainvert), .o_out(w_Wire1));
+	
+	Mux_2to1 M2 (.i_bit1(i_bit2), .i_bit2(i_bit2a), .i_bitS(Binvert), .o_out(w_Wire2));
+	
+	Onebitadder A1 (.i_bit1(w_Wire1), .i_bit2(w_Wire2), .i_carry(i_carry), .o_sum(w_Wire3), .o_carry(o_carry));
+	
+	Mux_3to1 M3 (.i_bit1(w_Wire4), .i_bit2(w_Wire5), .i_bit3(w_Wire3), .i_bit4(i_bit1), .i_bitS(Operation), .o_out(o_result));
+	
+	assign w_Wire4 = w_Wire1 & w_Wire2;
+	assign w_Wire5 = w_Wire1 | w_Wire2;
+	
+	
+	
+	
+	
+
+
+endmodule
